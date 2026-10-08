@@ -135,17 +135,17 @@ class SandboxService:
         self, script_path: Path, dataset_path: Path, output_dir: Path
     ) -> SandboxExecutionResult:
         start_time = time.time()
-        client = docker.from_env()
-
-        ext = dataset_path.suffix
-        volumes = {
-            str(script_path.resolve()): {"bind": "/workspace/code.py", "mode": "ro"},
-            str(dataset_path.resolve()): {"bind": f"/workspace/data/input{ext}", "mode": "ro"},
-            str(output_dir.resolve()): {"bind": "/workspace/outputs", "mode": "rw"}
-        }
-
         timed_out = False
         try:
+            client = docker.from_env()
+
+            ext = dataset_path.suffix
+            volumes = {
+                str(script_path.resolve()): {"bind": "/workspace/code.py", "mode": "ro"},
+                str(dataset_path.resolve()): {"bind": f"/workspace/data/input{ext}", "mode": "ro"},
+                str(output_dir.resolve()): {"bind": "/workspace/outputs", "mode": "rw"}
+            }
+
             container = client.containers.run(
                 self.image,
                 network_mode="none",
