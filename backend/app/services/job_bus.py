@@ -79,8 +79,33 @@ class JobBus:
             "status": "started"
         }
 
-        # Run LangGraph pipeline
-        final_state = await analysis_graph.ainvoke(initial_state)
+        # Run LangGraph pipeline with streaming transitions
+        final_state = dict(initial_state)
+        async for output in analysis_graph.astream(initial_state):
+            for node_name, node_output in output.items():
+                if isinstance(node_output, dict):
+                    final_state.update(node_output)
+
+                transition_events = {
+                    "code_generator": "code_generating",
+                    "sandbox_execute": "sandbox_executing",
+                    "code_corrector": "correction_started",
+                    "result_analyzer": "analysis_success",
+                    "insight_writer": "insight_generating",
+                    "visualization_builder": "visualization_generating",
+                    "failed_end": "failed"
+                }
+                event_name = transition_events.get(node_name, node_name)
+
+                await self.broadcast(dataset_id, {
+                    "type": "pipeline_transition",
+                    "event": event_name,
+                    "node": node_name,
+                    "run_id": run_id,
+                    "question_id": question_id,
+                    "attempt": final_state.get("current_attempt", 1),
+                    "status": final_state.get("status", "running")
+                })
 
         # Persist results
         async with AsyncSessionLocal() as session:
