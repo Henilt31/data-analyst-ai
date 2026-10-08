@@ -1,0 +1,42 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+
+# Data
+data/datasets/*
+data/outputs/*
+data/rag/*
+data/logs/*
+!data/datasets/.gitkeep
+!data/outputs/.gitkeep
+!data/rag/.gitkeep
+!data/logs/.gitkeep
+
+# Generated files
+*.log
+*.db
+*.sqlite*
+
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
