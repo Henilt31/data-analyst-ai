@@ -97,8 +97,12 @@ async def test_upload_excel():
 @pytest.mark.anyio
 async def test_list_datasets():
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+        await ac.post(
+            "/datasets",
+            files={"file": ("list_test.csv", b"a,b\n1,2\n", "text/csv")}
+        )
         res = await ac.get("/datasets")
         assert res.status_code == 200
         datasets = res.json()
         assert isinstance(datasets, list)
-        assert len(datasets) >= 4
+        assert len(datasets) >= 1

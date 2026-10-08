@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, BackgroundTasks
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
-from app.db.session import get_db, AsyncSessionLocal
+from app.db.session import get_db
+import app.db.session as db_session
 from app.db.repositories import DatasetRepository
 from app.services.storage import storage_service
 from app.services.profiling import profiling_service
@@ -10,7 +11,7 @@ from app.schemas.dataset import DatasetResponse, DatasetProfileResponse
 router = APIRouter(prefix="/datasets", tags=["datasets"])
 
 async def run_profiling_task(dataset_id: str, stored_path: str, file_type: str):
-    async with AsyncSessionLocal() as session:
+    async with db_session.AsyncSessionLocal() as session:
         repo = DatasetRepository(session)
         try:
             profile_data = profiling_service.profile_file(stored_path, file_type)

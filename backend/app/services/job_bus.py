@@ -2,7 +2,7 @@ import asyncio
 import uuid
 from typing import Dict, List, Any, Optional
 from fastapi import WebSocket
-from app.db.session import AsyncSessionLocal
+import app.db.session as db_session
 from app.db.repositories import DatasetRepository
 from app.agents.graph import analysis_graph
 from app.agents.state import AnalysisState
@@ -37,7 +37,7 @@ class JobBus:
     async def run_question_pipeline(self, question_id: str, dataset_id: str, run_id: Optional[str] = None) -> str:
         run_id = run_id or str(uuid.uuid4())
         
-        async with AsyncSessionLocal() as session:
+        async with db_session.AsyncSessionLocal() as session:
             repo = DatasetRepository(session)
             await repo.create_analysis_run(run_id, question_id)
             
@@ -108,7 +108,7 @@ class JobBus:
                 })
 
         # Persist results
-        async with AsyncSessionLocal() as session:
+        async with db_session.AsyncSessionLocal() as session:
             repo = DatasetRepository(session)
             await repo.save_run_results(run_id, final_state)
 
