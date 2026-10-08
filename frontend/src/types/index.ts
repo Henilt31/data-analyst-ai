@@ -71,8 +71,8 @@ export interface Insight {
   id: number;
   run_id: string;
   text: string;
-  evidence?: any;
-  important_numbers?: any;
+  evidence?: Record<string, unknown>;
+  important_numbers?: Record<string, unknown>;
   caveats?: string;
   takeaway?: string;
 }
@@ -83,7 +83,7 @@ export interface Visualization {
   chart_type: string;
   chart_path: string;
   title?: string;
-  data?: any;
+  data?: Record<string, unknown>;
 }
 
 export interface AnalysisRun {
