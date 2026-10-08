@@ -24,6 +24,15 @@ class LLMClient:
         self.google_api_key = google_api_key or settings.GOOGLE_API_KEY
         self.ollama_base_url = ollama_base_url or settings.OLLAMA_BASE_URL
 
+    def is_configured(self) -> bool:
+        if self.provider == "openrouter":
+            return bool(self.openrouter_api_key)
+        elif self.provider == "gemini":
+            return bool(self.google_api_key)
+        elif self.provider == "ollama":
+            return bool(self.ollama_base_url)
+        return False
+
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=2, max=10),
