@@ -70,11 +70,25 @@ class SandboxService:
         workspace_outputs = work_dir / "outputs"
         workspace_outputs.mkdir(parents=True, exist_ok=True)
 
+        # Inject sandbox security guard preventing socket connections
+        preamble = (
+            "import socket\n"
+            "def _blocked_connect(*args, **kwargs):\n"
+            "    raise PermissionError('Network access is disabled inside the analysis sandbox.')\n"
+            "socket.socket.connect = _blocked_connect\n"
+            "socket.create_connection = _blocked_connect\n"
+        )
+        safe_script_path = work_dir / "safe_exec.py"
+        with open(script_path, "r", encoding="utf-8") as sf:
+            user_script = sf.read()
+        with open(safe_script_path, "w", encoding="utf-8") as df:
+            df.write(preamble + "\n" + user_script)
+
         python_exe = sys.executable
 
         try:
             process = subprocess.run(
-                [python_exe, str(script_path.resolve())],
+                [python_exe, str(safe_script_path.resolve())],
                 cwd=str(work_dir.resolve()),
                 env=clean_env,
                 capture_output=True,
@@ -97,14 +111,15 @@ class SandboxService:
         duration_ms = int((time.time() - start_time) * 1000)
         failure_type = telemetry_service.classify_failure(exit_code, stdout, stderr, timed_out=timed_out)
 
-        # Collect output files
+        # Collect output files with quota caps (max 20 files, max 50MB per file)
         output_files = []
         if workspace_outputs.exists():
-            for f in workspace_outputs.glob("*"):
-                # Copy outputs to final output_dir
-                target = output_dir / f.name
-                shutil.copyfile(f, target)
-                output_files.append(str(target.resolve()))
+            candidates = list(workspace_outputs.glob("*"))[:20]
+            for f in candidates:
+                if f.is_file() and f.stat().st_size <= 50 * 1024 * 1024:
+                    target = output_dir / f.name
+                    shutil.copyfile(f, target)
+                    output_files.append(str(target.resolve()))
 
         return SandboxExecutionResult(
             exit_code=exit_code,
