@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 340" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ragBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c16" />
+      <stop offset="100%" stop-color="#0e172a" />
+    </linearGradient>
+
+    <linearGradient id="cardGradRag" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <marker id="arrowRag" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#818cf8" />
+    </marker>
+  </defs>
+
+  <style>
+    .title-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; fill: #f8fafc; }
+    .label-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 600; font-size: 13px; fill: #f1f5f9; }
+    .desc-text { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 10px; fill: #94a3b8; }
+    .privacy-tag { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; font-size: 11px; fill: #34d399; }
+  </style>
+
+  <!-- Background -->
+  <rect width="980" height="340" fill="url(#ragBg)" rx="14" stroke="#334155" stroke-width="1.2" />
+
+  <!-- Diagram Title -->
+  <g transform="translate(40, 35)">
+    <text x="0" y="0" class="title-text" font-size="20">Privacy-Preserving Structural RAG Architecture</text>
+    <text x="0" y="20" class="desc-text" fill="#64748b">Cross-dataset analytical recall using synthetic representations without raw row exfiltration</text>
+  </g>
+
+  <!-- Stage 1: Dataset Profile & Schema -->
+  <g transform="translate(40, 90)">
+    <rect width="165" height="135" rx="8" fill="url(#cardGradRag)" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="15" y="28" class="label-text">1. Dataset Profile</text>
+    <text x="15" y="52" class="desc-text">• Column names</text>
+    <text x="15" y="70" class="desc-text">• Semantic types</text>
+    <text x="15" y="88" class="desc-text">• Missing ratios</text>
+    <text x="15" y="106" class="desc-text">• Row/col dimensions</text>
+    <rect x="12" y="116" width="141" height="1" fill="#334155" />
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 205 157 L 235 157" stroke="#818cf8" stroke-width="2" marker-end="url(#arrowRag)" />
+
+  <!-- Stage 2: Synthetic Structural Formatter -->
+  <g transform="translate(240, 90)">
+    <rect width="180" height="135" rx="8" fill="url(#cardGradRag)" stroke="#818cf8" stroke-width="1.2" />
+    <text x="15" y="28" class="label-text">2. Structural Formatter</text>
+    <text x="15" y="52" class="desc-text">• Strips data rows</text>
+    <text x="15" y="70" class="desc-text">• Synthesizes schema</text>
+    <text x="15" y="88" class="desc-text">• Analytical domain tag</text>
+    <rect x="12" y="104" width="156" height="20" rx="4" fill="#064e3b" stroke="#059669" />
+    <text x="18" y="118" class="privacy-tag">ZERO RAW DATA</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 420 157 L 450 157" stroke="#818cf8" stroke-width="2" marker-end="url(#arrowRag)" />
+
+  <!-- Stage 3: Local Embeddings -->
+  <g transform="translate(455, 90)">
+    <rect width="170" height="135" rx="8" fill="url(#cardGradRag)" stroke="#c084fc" stroke-width="1.2" />
+    <text x="15" y="28" class="label-text">3. Local Vectors</text>
+    <text x="15" y="52" class="desc-text">• 384-d Embeddings</text>
+    <text x="15" y="70" class="desc-text">• MiniLM / Fallback</text>
+    <text x="15" y="88" class="desc-text">• Deterministic math</text>
+    <text x="15" y="106" class="desc-text">• 100% Offline</text>
+    <rect x="12" y="116" width="146" height="1" fill="#334155" />
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 625 157 L 655 157" stroke="#818cf8" stroke-width="2" marker-end="url(#arrowRag)" />
+
+  <!-- Stage 4: Chroma Vector Store -->
+  <g transform="translate(660, 90)">
+    <rect width="165" height="135" rx="8" fill="url(#cardGradRag)" stroke="#f472b6" stroke-width="1.2" />
+    <text x="15" y="28" class="label-text">4. ChromaDB</text>
+    <text x="15" y="52" class="desc-text">• Disk persisted</text>
+    <text x="15" y="70" class="desc-text">• data/rag store</text>
+    <text x="15" y="88" class="desc-text">• Cosine distance</text>
+    <text x="15" y="106" class="desc-text">• Fast top-k fetch</text>
+    <rect x="12" y="116" width="141" height="1" fill="#334155" />
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M 825 157 L 850 157" stroke="#818cf8" stroke-width="2" marker-end="url(#arrowRag)" />
+
+  <!-- Stage 5: Research Questions Prompt Context -->
+  <g transform="translate(855, 90)">
+    <rect width="85" height="135" rx="8" fill="url(#cardGradRag)" stroke="#34d399" stroke-width="1.2" />
+    <text x="12" y="45" class="label-text" font-size="11" fill="#34d399">Prompt</text>
+    <text x="12" y="65" class="label-text" font-size="11" fill="#34d399">Context</text>
+    <text x="12" y="90" class="desc-text" font-size="9">Similar</text>
+    <text x="12" y="105" class="desc-text" font-size="9">Questions</text>
+  </g>
+
+  <!-- Bottom Privacy Banner -->
+  <g transform="translate(40, 255)">
+    <rect width="900" height="50" rx="8" fill="#020617" stroke="#1e293b" />
+    <text x="20" y="25" class="label-text" font-size="12" fill="#38bdf8">Strict Privacy Guarantee:</text>
+    <text x="20" y="41" class="desc-text" fill="#cbd5e1">
+      Raw dataset rows are NEVER transmitted to external vector stores or embedding endpoints. RAG can be strictly disabled via <tspan fill="#fbbf24">?rag_enabled=false</tspan>.
+    </text>
+  </g>
+</svg>

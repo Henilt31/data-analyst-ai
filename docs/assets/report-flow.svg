@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 320" width="100%" height="100%">
+  <defs>
+    <linearGradient id="repBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c16" />
+      <stop offset="100%" stop-color="#0e172a" />
+    </linearGradient>
+
+    <linearGradient id="cardRep" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <marker id="arrowRep" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+
+  <style>
+    .title-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; fill: #f8fafc; }
+    .label-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 600; font-size: 13px; fill: #f1f5f9; }
+    .desc-text { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 10px; fill: #94a3b8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="980" height="320" fill="url(#repBg)" rx="14" stroke="#334155" stroke-width="1.2" />
+
+  <!-- Diagram Title -->
+  <g transform="translate(40, 35)">
+    <text x="0" y="0" class="title-text" font-size="20">Synthesis &amp; Grounded Analytical Reporting</text>
+    <text x="0" y="20" class="desc-text" fill="#64748b">Transforming executed calculations into verified evidence, visualizations, and executive reports</text>
+  </g>
+
+  <!-- Flow Steps -->
+  <!-- 1. Question -->
+  <g transform="translate(40, 85)">
+    <rect width="160" height="185" rx="8" fill="url(#cardRep)" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="14" y="28" class="label-text">1. Hypothesis</text>
+    <text x="14" y="52" class="desc-text">• Testable question</text>
+    <text x="14" y="70" class="desc-text">• Target columns</text>
+    <text x="14" y="88" class="desc-text">• Analytical category</text>
+    <text x="14" y="106" class="desc-text">• Business rationale</text>
+    <rect x="12" y="130" width="136" height="40" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="20" y="148" class="desc-text" font-size="9" fill="#38bdf8">"What drives churn</text>
+    <text x="20" y="162" class="desc-text" font-size="9" fill="#38bdf8">across tenure tiers?"</text>
+  </g>
+
+  <path d="M 200 177 L 230 177" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowRep)" />
+
+  <!-- 2. Python Execution -->
+  <g transform="translate(235, 85)">
+    <rect width="165" height="185" rx="8" fill="url(#cardRep)" stroke="#818cf8" stroke-width="1.2" />
+    <text x="14" y="28" class="label-text">2. Sandbox Execution</text>
+    <text x="14" y="52" class="desc-text">• Isolated Python</text>
+    <text x="14" y="70" class="desc-text">• Pandas / NumPy</text>
+    <text x="14" y="88" class="desc-text">• Matplotlib charts</text>
+    <text x="14" y="106" class="desc-text">• stdout capture</text>
+    <rect x="12" y="130" width="141" height="40" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="20" y="148" class="desc-text" font-size="9" fill="#818cf8">RESULT_JSON: {</text>
+    <text x="20" y="162" class="desc-text" font-size="9" fill="#818cf8">  "odds_ratio": 3.4 }</text>
+  </g>
+
+  <path d="M 400 177 L 430 177" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowRep)" />
+
+  <!-- 3. Grounded Finding -->
+  <g transform="translate(435, 85)">
+    <rect width="165" height="185" rx="8" fill="url(#cardRep)" stroke="#34d399" stroke-width="1.2" />
+    <text x="14" y="28" class="label-text">3. Grounded Insight</text>
+    <text x="14" y="52" class="desc-text">• Structured JSON</text>
+    <text x="14" y="70" class="desc-text">• Strict evidence lock</text>
+    <text x="14" y="88" class="desc-text">• Key takeaway</text>
+    <text x="14" y="106" class="desc-text">• Stated caveats</text>
+    <rect x="12" y="130" width="141" height="40" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="20" y="148" class="desc-text" font-size="9" fill="#34d399">evidence: {"odds": 3.4}</text>
+    <text x="20" y="162" class="desc-text" font-size="9" fill="#34d399">takeaway: "Onboard..."</text>
+  </g>
+
+  <path d="M 600 177 L 630 177" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowRep)" />
+
+  <!-- 4. Visualization Artifact -->
+  <g transform="translate(635, 85)">
+    <rect width="150" height="185" rx="8" fill="url(#cardRep)" stroke="#fbbf24" stroke-width="1.2" />
+    <text x="14" y="28" class="label-text">4. Visual Plot</text>
+    <text x="14" y="52" class="desc-text">• PNG generated</text>
+    <text x="14" y="70" class="desc-text">• Bar / Scatter</text>
+    <text x="14" y="88" class="desc-text">• Histogram / Heatmap</text>
+    <text x="14" y="106" class="desc-text">• Auto-path linkage</text>
+    <rect x="12" y="130" width="126" height="40" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="20" y="155" class="desc-text" font-size="9" fill="#fbbf24">churn_by_tenure.png</text>
+  </g>
+
+  <path d="M 785 177 L 810 177" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowRep)" />
+
+  <!-- 5. Executive Report -->
+  <g transform="translate(815, 85)">
+    <rect width="130" height="185" rx="8" fill="url(#cardRep)" stroke="#f472b6" stroke-width="1.2" />
+    <text x="12" y="28" class="label-text" font-size="12">5. Final Report</text>
+    <text x="12" y="52" class="desc-text" font-size="9">• Exec Summary</text>
+    <text x="12" y="70" class="desc-text" font-size="9">• Data Quality</text>
+    <text x="12" y="88" class="desc-text" font-size="9">• Findings List</text>
+    <text x="12" y="106" class="desc-text" font-size="9">• Visual Charts</text>
+    <text x="12" y="124" class="desc-text" font-size="9">• Limitations</text>
+    <rect x="10" y="140" width="110" height="30" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="16" y="158" class="desc-text" font-size="9" fill="#f472b6">Markdown Doc</text>
+  </g>
+</svg>

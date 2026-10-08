@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c14" />
+      <stop offset="100%" stop-color="#0e1726" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9" />
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.4" />
+    </filter>
+
+    <pattern id="archGrid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#1e293b" stroke-width="0.5" stroke-opacity="0.4" />
+    </pattern>
+  </defs>
+
+  <style>
+    .header-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; fill: #f8fafc; }
+    .section-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 600; font-size: 13px; fill: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; }
+    .item-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 600; font-size: 13px; fill: #f1f5f9; }
+    .item-desc { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 11px; fill: #94a3b8; }
+    .accent-blue { fill: #38bdf8; }
+    .accent-purple { fill: #c084fc; }
+    .accent-emerald { fill: #34d399; }
+    .accent-amber { fill: #fbbf24; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1100" height="680" fill="url(#bg)" rx="16" />
+  <rect width="1100" height="680" fill="url(#archGrid)" rx="16" />
+  <rect x="1" y="1" width="1098" height="678" fill="none" stroke="#334155" stroke-width="1.5" rx="16" />
+
+  <!-- Diagram Title -->
+  <g transform="translate(50, 45)">
+    <text x="0" y="0" class="header-text" font-size="24">DataMind System Architecture</text>
+    <text x="0" y="22" class="item-desc" fill="#64748b">Local-first modular components, sandboxed execution bounds, and LangGraph orchestration</text>
+  </g>
+
+  <!-- LAYER 1: CLIENT TIER (FRONTEND) -->
+  <g transform="translate(50, 95)" filter="url(#shadow)">
+    <rect width="1000" height="95" rx="10" fill="url(#cardGrad)" stroke="#334155" />
+    <text x="25" y="28" class="section-title">Client Tier (Next.js 16 + React 19 App Router)</text>
+    
+    <!-- Component 1 -->
+    <g transform="translate(25, 42)">
+      <rect width="220" height="40" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+      <text x="15" y="20" class="item-title">Dataset Workspace</text>
+      <text x="15" y="33" class="item-desc" fill="#38bdf8">Upload, Schema, &amp; Profile</text>
+    </g>
+    <!-- Component 2 -->
+    <g transform="translate(265, 42)">
+      <rect width="220" height="40" rx="6" fill="#0f172a" stroke="#818cf8" stroke-width="1" />
+      <text x="15" y="20" class="item-title">Questions &amp; RAG Controls</text>
+      <text x="15" y="33" class="item-desc" fill="#818cf8">Toggle Retrieval &amp; Hypotheses</text>
+    </g>
+    <!-- Component 3 -->
+    <g transform="translate(505, 42)">
+      <rect width="220" height="40" rx="6" fill="#0f172a" stroke="#c084fc" stroke-width="1" />
+      <text x="15" y="20" class="item-title">Live Pipeline Monitor</text>
+      <text x="15" y="33" class="item-desc" fill="#c084fc">WebSocket Transition Stream</text>
+    </g>
+    <!-- Component 4 -->
+    <g transform="translate(745, 42)">
+      <rect width="230" height="40" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1" />
+      <text x="15" y="20" class="item-title">Analytical Report Viewer</text>
+      <text x="15" y="33" class="item-desc" fill="#34d399">Markdown &amp; Charts Dashboard</text>
+    </g>
+  </g>
+
+  <!-- Connectors Layer 1 -> Layer 2 -->
+  <path d="M 550 190 L 550 220" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,4" />
+  <polygon points="550,225 545,215 555,215" fill="#38bdf8" />
+
+  <!-- LAYER 2: API GATEWAY & BUS -->
+  <g transform="translate(50, 225)" filter="url(#shadow)">
+    <rect width="1000" height="95" rx="10" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="25" y="28" class="section-title" fill="#38bdf8">API Gateway &amp; Event Bus (FastAPI + Asyncpg + WebSocket)</text>
+
+    <!-- Component 1 -->
+    <g transform="translate(25, 42)">
+      <rect width="220" height="40" rx="6" fill="#0b1728" stroke="#1e3a5f" />
+      <text x="15" y="20" class="item-title">REST Ingestion API</text>
+      <text x="15" y="33" class="item-desc">POST /datasets, GET /profile</text>
+    </g>
+    <!-- Component 2 -->
+    <g transform="translate(265, 42)">
+      <rect width="220" height="40" rx="6" fill="#0b1728" stroke="#1e3a5f" />
+      <text x="15" y="20" class="item-title">Analysis Orchestrator API</text>
+      <text x="15" y="33" class="item-desc">POST /runs, GET /runs/{id}</text>
+    </g>
+    <!-- Component 3 -->
+    <g transform="translate(505, 42)">
+      <rect width="220" height="40" rx="6" fill="#0b1728" stroke="#0284c7" />
+      <text x="15" y="20" class="item-title">WebSocket JobBus</text>
+      <text x="15" y="33" class="item-desc" fill="#38bdf8">WS /ws/datasets/{id}/status</text>
+    </g>
+    <!-- Component 4 -->
+    <g transform="translate(745, 42)">
+      <rect width="230" height="40" rx="6" fill="#0b1728" stroke="#1e3a5f" />
+      <text x="15" y="20" class="item-title">Reports &amp; Auth API</text>
+      <text x="15" y="33" class="item-desc">POST /report, POST /auth/*</text>
+    </g>
+  </g>
+
+  <!-- Connectors Layer 2 -> Layer 3 -->
+  <path d="M 300 320 L 300 355" stroke="#818cf8" stroke-width="1.8" />
+  <path d="M 800 320 L 800 355" stroke="#818cf8" stroke-width="1.8" />
+
+  <!-- LAYER 3: CORE ENGINE & ORCHESTRATION -->
+  <g transform="translate(50, 355)">
+    <!-- LEFT BOX: LangGraph Pipeline -->
+    <g filter="url(#shadow)">
+      <rect width="610" height="200" rx="10" fill="url(#cardGrad)" stroke="#c084fc" stroke-width="1.2" />
+      <text x="25" y="28" class="section-title" fill="#c084fc">Autonomous Analysis Engine (LangGraph Core)</text>
+      
+      <!-- Nodes within LangGraph -->
+      <g transform="translate(25, 45)">
+        <rect width="165" height="36" rx="6" fill="#0f172a" stroke="#818cf8" />
+        <text x="10" y="18" class="item-title" font-size="11">Code Generator</text>
+        <text x="10" y="29" class="item-desc" font-size="9" fill="#818cf8">LLM Python Scripting</text>
+      </g>
+      <path d="M 190 63 L 210 63" stroke="#475569" stroke-width="1.5" />
+      
+      <g transform="translate(210, 45)">
+        <rect width="170" height="36" rx="6" fill="#1e1b4b" stroke="#f43f5e" stroke-width="1.2" />
+        <text x="10" y="18" class="item-title" font-size="11" fill="#f43f5e">Isolated Sandbox</text>
+        <text x="10" y="29" class="item-desc" font-size="9" fill="#fca5a5">Subprocess / Docker</text>
+      </g>
+      <path d="M 380 63 L 400 63" stroke="#475569" stroke-width="1.5" />
+
+      <g transform="translate(400, 45)">
+        <rect width="185" height="36" rx="6" fill="#0f172a" stroke="#34d399" />
+        <text x="10" y="18" class="item-title" font-size="11">Result Analyzer</text>
+        <text x="10" y="29" class="item-desc" font-size="9" fill="#34d399">RESULT_JSON Grounding</text>
+      </g>
+
+      <!-- Self-correction loop row -->
+      <g transform="translate(210, 100)">
+        <rect width="170" height="36" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1.2" />
+        <text x="10" y="18" class="item-title" font-size="11">Code Corrector</text>
+        <text x="10" y="29" class="item-desc" font-size="9" fill="#fbbf24">Traceback Feedback (≤3)</text>
+      </g>
+      <!-- Loop Arrows -->
+      <path d="M 295 81 L 295 100" stroke="#f43f5e" stroke-width="1.5" />
+      <path d="M 210 118 L 190 118 L 190 70" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3,3" />
+
+      <!-- Success Downstream -->
+      <g transform="translate(400, 100)">
+        <rect width="185" height="36" rx="6" fill="#0f172a" stroke="#38bdf8" />
+        <text x="10" y="18" class="item-title" font-size="11">Insight &amp; Viz Builder</text>
+        <text x="10" y="29" class="item-desc" font-size="9" fill="#38bdf8">Artifact Linkage</text>
+      </g>
+      <path d="M 492 81 L 492 100" stroke="#34d399" stroke-width="1.5" />
+
+      <!-- Security Callout Tag -->
+      <rect x="25" y="152" width="560" height="28" rx="4" fill="#020617" stroke="#334155" />
+      <text x="35" y="170" class="item-desc" fill="#94a3b8">
+        <tspan fill="#f43f5e">Isolation Controls:</tspan> Network Sockets Blocked • Secrets Scrubbed • 30s Timeout • 50MB Disk Quota
+      </text>
+    </g>
+
+    <!-- RIGHT BOX: Local RAG & Vector Memory -->
+    <g transform="translate(630, 0)" filter="url(#shadow)">
+      <rect width="370" height="200" rx="10" fill="url(#cardGrad)" stroke="#334155" />
+      <text x="25" y="28" class="section-title">Local RAG &amp; Vector Index</text>
+
+      <g transform="translate(25, 45)">
+        <rect width="320" height="38" rx="6" fill="#0f172a" stroke="#6366f1" />
+        <text x="12" y="18" class="item-title" font-size="11">Synthetic Structural Formatter</text>
+        <text x="12" y="29" class="item-desc" font-size="9">Zero raw dataset data leaks</text>
+      </g>
+
+      <g transform="translate(25, 95)">
+        <rect width="320" height="38" rx="6" fill="#0f172a" stroke="#6366f1" />
+        <text x="12" y="18" class="item-title" font-size="11">Sentence Transformers (384-d)</text>
+        <text x="12" y="29" class="item-desc" font-size="9">100% Deterministic Local Embeddings</text>
+      </g>
+
+      <g transform="translate(25, 145)">
+        <rect width="320" height="38" rx="6" fill="#0f172a" stroke="#818cf8" />
+        <text x="12" y="18" class="item-title" font-size="11">Chroma Persistent Vector Store</text>
+        <text x="12" y="29" class="item-desc" font-size="9" fill="#818cf8">Stored at data/rag • Cross-Dataset Recall</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- LAYER 4: PERSISTENCE & STORAGE BASELINE -->
+  <g transform="translate(50, 575)" filter="url(#shadow)">
+    <rect width="1000" height="80" rx="10" fill="url(#cardGrad)" stroke="#334155" />
+    <text x="25" y="24" class="section-title">Local Persistence &amp; Observability Baseline</text>
+
+    <g transform="translate(25, 34)">
+      <rect width="300" height="34" rx="5" fill="#0f172a" stroke="#1e293b" />
+      <text x="12" y="16" class="item-title" font-size="11">Relational DB (PostgreSQL / SQLite)</text>
+      <text x="12" y="27" class="item-desc" font-size="9">Datasets, Profiles, Questions, Runs, Insights</text>
+    </g>
+
+    <g transform="translate(345, 34)">
+      <rect width="310" height="34" rx="5" fill="#0f172a" stroke="#1e293b" />
+      <text x="12" y="16" class="item-title" font-size="11">Local Storage (data/datasets, data/outputs)</text>
+      <text x="12" y="27" class="item-desc" font-size="9">Raw Data, Code Scripts, PNG Chart Artifacts</text>
+    </g>
+
+    <g transform="translate(675, 34)">
+      <rect width="300" height="34" rx="5" fill="#0f172a" stroke="#1e293b" />
+      <text x="12" y="16" class="item-title" font-size="11">Structured Telemetry (data/logs/trials.jsonl)</text>
+      <text x="12" y="27" class="item-desc" font-size="9">Trial Categorization &amp; Failure Taxonomy</text>
+    </g>
+  </g>
+</svg>

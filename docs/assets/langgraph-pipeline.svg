@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgLang" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070b14" />
+      <stop offset="100%" stop-color="#0d1527" />
+    </linearGradient>
+
+    <linearGradient id="nodeCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#34d399" />
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#f43f5e" />
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <style>
+    .title-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; fill: #f8fafc; }
+    .label-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 600; font-size: 13px; fill: #f1f5f9; }
+    .desc-text { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 10px; fill: #94a3b8; }
+    .edge-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 600; font-size: 11px; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="980" height="500" fill="url(#bgLang)" rx="14" stroke="#334155" stroke-width="1.2" />
+
+  <!-- Diagram Title -->
+  <g transform="translate(40, 40)">
+    <text x="0" y="0" class="title-text" font-size="20">LangGraph Self-Correcting Execution State Machine</text>
+    <text x="0" y="20" class="desc-text" fill="#64748b">Iterative traceback repair with deterministic retry bounds (Max Attempts: 3)</text>
+  </g>
+
+  <!-- START NODE -->
+  <g transform="translate(60, 130)">
+    <circle cx="20" cy="30" r="16" fill="#0284c7" stroke="#38bdf8" stroke-width="2" />
+    <text x="20" y="34" font-family="sans-serif" font-weight="700" font-size="10" fill="#fff" text-anchor="middle">START</text>
+  </g>
+
+  <!-- Arrow Start -> code_generator -->
+  <path d="M 96 160 L 140 160" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- NODE 1: code_generator -->
+  <g transform="translate(145, 125)">
+    <rect width="165" height="70" rx="8" fill="url(#nodeCard)" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="15" y="28" class="label-text">code_generator</text>
+    <text x="15" y="44" class="desc-text">LLM Code Synthesis</text>
+    <text x="15" y="58" class="desc-text" fill="#38bdf8">AST Syntax Pre-check</text>
+  </g>
+
+  <!-- Arrow code_generator -> sandbox_execute -->
+  <path d="M 310 160 L 355 160" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- NODE 2: sandbox_execute -->
+  <g transform="translate(360, 125)">
+    <rect width="175" height="70" rx="8" fill="url(#nodeCard)" stroke="#f43f5e" stroke-width="1.5" />
+    <text x="15" y="28" class="label-text" fill="#fca5a5">sandbox_execute</text>
+    <text x="15" y="44" class="desc-text">Docker / Subprocess</text>
+    <text x="15" y="58" class="desc-text" fill="#f43f5e">Network Blocked (30s)</text>
+  </g>
+
+  <!-- Arrow sandbox_execute -> decision point -->
+  <path d="M 535 160 L 590 160" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- DECISION DIAMOND: check_execution_success -->
+  <g transform="translate(595, 130)">
+    <polygon points="30,0 60,30 30,60 0,30" fill="#1e293b" stroke="#818cf8" stroke-width="1.5" />
+    <text x="30" y="34" font-family="sans-serif" font-weight="700" font-size="10" fill="#818cf8" text-anchor="middle">EXIT 0?</text>
+  </g>
+
+  <!-- SUCCESS PATH (Rightward) -->
+  <path d="M 655 160 L 710 160" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)" />
+  <text x="665" y="150" class="edge-label" fill="#34d399">Success</text>
+
+  <!-- NODE 3: result_analyzer -->
+  <g transform="translate(715, 125)">
+    <rect width="185" height="70" rx="8" fill="url(#nodeCard)" stroke="#34d399" stroke-width="1.5" />
+    <text x="15" y="28" class="label-text">result_analyzer</text>
+    <text x="15" y="44" class="desc-text">RESULT_JSON Parser</text>
+    <text x="15" y="58" class="desc-text" fill="#34d399">Deterministic Metrics</text>
+  </g>
+
+  <!-- Downward Arrow to insight_writer -->
+  <path d="M 807 195 L 807 245" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)" />
+
+  <!-- NODE 4: insight_writer -->
+  <g transform="translate(715, 250)">
+    <rect width="185" height="65" rx="8" fill="url(#nodeCard)" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="15" y="26" class="label-text">insight_writer</text>
+    <text x="15" y="42" class="desc-text">Grounded LLM Reasoning</text>
+    <text x="15" y="56" class="desc-text" fill="#38bdf8">Strict Evidence Linkage</text>
+  </g>
+
+  <!-- Downward Arrow to visualization_builder -->
+  <path d="M 807 315 L 807 360" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowGreen)" />
+
+  <!-- NODE 5: visualization_builder -->
+  <g transform="translate(715, 365)">
+    <rect width="185" height="65" rx="8" fill="url(#nodeCard)" stroke="#c084fc" stroke-width="1.5" />
+    <text x="15" y="26" class="label-text">visualization_builder</text>
+    <text x="15" y="42" class="desc-text">Plot Discovery &amp; Type</text>
+    <text x="15" y="56" class="desc-text" fill="#c084fc">PNG Artifact Link</text>
+  </g>
+
+  <!-- Arrow to END -->
+  <path d="M 807 430 L 807 460 L 665 460" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- FAILURE PATHS (Downward & Retry Loop) -->
+  <!-- Decision -> Code Corrector if attempt < max -->
+  <path d="M 625 190 L 625 285 L 535 285" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowAmber)" />
+  <text x="590" y="225" class="edge-label" fill="#fbbf24">Error (Attempt &lt; 3)</text>
+
+  <!-- NODE 6: code_corrector -->
+  <g transform="translate(355, 250)">
+    <rect width="180" height="70" rx="8" fill="url(#nodeCard)" stroke="#fbbf24" stroke-width="1.5" />
+    <text x="15" y="28" class="label-text" fill="#fbbf24">code_corrector</text>
+    <text x="15" y="44" class="desc-text">Traceback Inspection</text>
+    <text x="15" y="58" class="desc-text" fill="#fbbf24">Self-Correcting LLM</text>
+  </g>
+
+  <!-- Retry Loop Arrow back to sandbox_execute -->
+  <path d="M 445 250 L 445 198" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowAmber)" stroke-dasharray="4,4" />
+  <text x="452" y="230" class="edge-label" fill="#fbbf24">Retry</text>
+
+  <!-- Decision -> failed_end if attempt >= max -->
+  <path d="M 625 190 L 625 365" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowRed)" />
+  <text x="632" y="340" class="edge-label" fill="#f43f5e">Attempt ≥ 3</text>
+
+  <!-- NODE 7: failed_end -->
+  <g transform="translate(535, 365)">
+    <rect width="180" height="65" rx="8" fill="url(#nodeCard)" stroke="#f43f5e" stroke-width="1.5" />
+    <text x="15" y="26" class="label-text" fill="#fca5a5">failed_end</text>
+    <text x="15" y="42" class="desc-text">Mark Run Failed</text>
+    <text x="15" y="56" class="desc-text" fill="#f43f5e">Log Telemetry Taxonomy</text>
+  </g>
+
+  <!-- Arrow failed_end -> END -->
+  <path d="M 625 430 L 625 448" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- TERMINAL END NODE -->
+  <g transform="translate(625, 460)">
+    <circle cx="0" cy="0" r="16" fill="#334155" stroke="#94a3b8" stroke-width="2" />
+    <text x="0" y="4" font-family="sans-serif" font-weight="700" font-size="10" fill="#fff" text-anchor="middle">END</text>
+  </g>
+</svg>
